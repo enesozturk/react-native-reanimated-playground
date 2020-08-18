@@ -1,23 +1,24 @@
 import React from "react";
 
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import ToggleOpacity from "./src/ToggleOpacity";
 
 export default function App() {
   return (
-    <View style={Styles.container}>
+    <View style={Styles.pageContainer}>
       <ToggleOpacity />
     </View>
   );
 }
 
 const Styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
+  pageContainer: {
+    width: Dimensions.get("screen").width,
+    height: "100%",
+    paddingHorizontal: 32,
+    backgroundColor: "white",
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "100%",
-    display: "flex",
   },
 });

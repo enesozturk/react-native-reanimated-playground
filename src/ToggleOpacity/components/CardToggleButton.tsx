@@ -12,7 +12,7 @@ const CardToggleButton = ({ onPress }: CardToggleButtonProps) => {
       activeOpacity={0.5}
       onPress={onPress}
     >
-      <Text style={Styles.togglebuttonText}>Toggle</Text>
+      <Text style={Styles.togglebuttonText}>Toggle Card</Text>
     </TouchableOpacity>
   );
 };
@@ -23,16 +23,22 @@ const Styles = StyleSheet.create({
   toggleButton: {
     marginTop: 16,
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#7474BF",
+    paddingVertical: 16,
+    borderRadius: 32,
     backgroundColor: "white",
+    shadowColor: "rgba(0, 0, 0, .2)",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 10,
   },
   togglebuttonText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#7474BF",
+    color: "#0072ff",
     textAlign: "center",
   },
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import Animated, {
   useCode,
@@ -49,8 +49,8 @@ const ToggleOpacity = () => {
   );
 
   return (
-    <View>
-      <Animated.View style={{ opacity }}>
+    <View style={Styles.toggleOpacityWrapper}>
+      <Animated.View style={[Styles.cardWrapper, { opacity }]}>
         <Card />
       </Animated.View>
       <CardToggleButton
@@ -61,5 +61,23 @@ const ToggleOpacity = () => {
     </View>
   );
 };
+
+const Styles = StyleSheet.create({
+  toggleOpacityWrapper: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  cardWrapper: {
+    shadowColor: "rgba(0, 198, 255, 0.5)",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 10,
+  },
+});
 
 export default ToggleOpacity;
