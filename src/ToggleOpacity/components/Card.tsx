@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, Text } from "react-native";
+import { StyleSheet, Dimensions, Text } from "react-native";
 
 const CardWidth = Dimensions.get("screen").width - 80;
 import { LinearGradient } from "expo-linear-gradient";
