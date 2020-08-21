@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Dimensions, View, StyleSheet, ViewStyle } from "react-native";
 import Card, { cards } from "../components/Card";
 import SelectionButton from "../components/SelectionButton";
+import {
+  Transitioning,
+  Transition,
+  TransitioningView,
+} from "react-native-reanimated";
 
 const DimensionWidth = Dimensions.get("screen").width;
 const CARD_ASPECT_RATIO = 1324 / 863;
@@ -66,11 +71,19 @@ const layouts: Layout[] = [
   },
 ];
 
+const transition = (
+  <Transition.Change durationMs={300} interpolation="easeInOut" />
+);
+
 export default () => {
+  const ref = useRef<TransitioningView>(null);
   const [currentLayout, setCurrentLayout] = useState(layouts[0]);
   return (
     <View style={Styles.container}>
-      <View style={[Styles.cardsContainer, currentLayout.layout.container]}>
+      <Transitioning.View
+        style={[Styles.cardsContainer, currentLayout.layout.container]}
+        {...{ ref, transition }}
+      >
         {cards.map((item) => {
           return (
             <Card
@@ -80,7 +93,7 @@ export default () => {
             />
           );
         })}
-      </View>
+      </Transitioning.View>
       <View style={Styles.layoutButtonsContainer}>
         {layouts.map((item, i) => {
           return (
@@ -88,6 +101,7 @@ export default () => {
               key={i}
               title={item.name}
               onPress={() => {
+                if (ref.current) ref.current.animateNextTransition();
                 setCurrentLayout(item);
               }}
               isActive={i == layouts.indexOf(currentLayout)}
