@@ -4,12 +4,14 @@ import { StyleSheet, View, Dimensions } from "react-native";
 
 import ToggleOpacity from "./src/ToggleOpacity";
 import LayoutTransitions from "./src/LayoutTransitions";
-import UseTransitions from "./src/components/UseTransitions";
+import UseTransitions from "./src/UseTransitions";
+import Timing from "./src/Timing";
 
 export default function App() {
   return (
     <View style={Styles.pageContainer}>
-      <UseTransitions />
+      <Timing />
+      {/* <UseTransitions /> */}
       {/* <LayoutTransitions /> */}
       {/* <ToggleOpacity /> */}
     </View>

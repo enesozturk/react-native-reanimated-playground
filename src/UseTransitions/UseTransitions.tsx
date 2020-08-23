@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import Card, { cards } from "../Card";
-import Animated, {
-  divide,
-  multiply,
-  not,
-  interpolate,
-  concat,
-} from "react-native-reanimated";
-import Button from "../Button";
+import Card, { cards } from "../components/Card";
+import Animated, { multiply, interpolate } from "react-native-reanimated";
+import Button from "../components/Button";
 
 import { useTransition } from "react-native-redash";
 
