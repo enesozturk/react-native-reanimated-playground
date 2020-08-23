@@ -40,14 +40,14 @@ const styles = StyleSheet.create({
 
 export interface CardProps {
   card: Card;
-  style: ViewStyle;
+  style?: ViewStyle;
 }
 
 const Card = ({ card, style }: CardProps) => {
   return (
     <LinearGradient
       style={[styles.container, { ...style }]}
-      colors={card.colors}
+      colors={card ? card.colors : ["#00c6ff", "#0072ff"]}
     />
   );
 };

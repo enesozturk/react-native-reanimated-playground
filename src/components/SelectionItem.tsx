@@ -6,23 +6,19 @@ import {
   GestureResponderEvent,
 } from "react-native";
 
-interface SelectionButtonProps {
+interface SelectionItemProps {
   isActive?: boolean;
   title: string;
   onPress: (event: GestureResponderEvent) => void;
 }
 
-const SelectionButton = ({
-  isActive,
-  title,
-  onPress,
-}: SelectionButtonProps) => {
+const SelectionItem = ({ isActive, title, onPress }: SelectionItemProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[Styles.selectionButton]}>
+    <TouchableOpacity onPress={onPress} style={[Styles.button]}>
       <Text
         style={[
-          Styles.selectionButtonText,
-          isActive ? { ...Styles.selectionButtonTextActive } : {},
+          Styles.buttonText,
+          isActive ? { ...Styles.buttonTextActive } : {},
         ]}
       >
         {title}
@@ -31,19 +27,19 @@ const SelectionButton = ({
   );
 };
 
-export default SelectionButton;
+export default SelectionItem;
 
 const Styles = StyleSheet.create({
-  selectionButton: {
+  button: {
     width: "100%",
     padding: 16,
     borderBottomColor: "#e2e2e2",
     borderBottomWidth: 1,
   },
-  selectionButtonText: {
+  buttonText: {
     color: "gray",
   },
-  selectionButtonTextActive: {
+  buttonTextActive: {
     fontWeight: "bold",
     color: "#00c6ff",
   },

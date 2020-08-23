@@ -1,23 +1,24 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-interface CardToggleButtonProps {
+interface ButtonProps {
+  title?: string;
   onPress: any;
 }
 
-const CardToggleButton = ({ onPress }: CardToggleButtonProps) => {
+const Button = ({ title, onPress }: ButtonProps) => {
   return (
     <TouchableOpacity
       style={Styles.toggleButton}
       activeOpacity={0.5}
       onPress={onPress}
     >
-      <Text style={Styles.togglebuttonText}>Toggle Card</Text>
+      <Text style={Styles.togglebuttonText}>{title ? title : "Toggle"}</Text>
     </TouchableOpacity>
   );
 };
 
-export default CardToggleButton;
+export default Button;
 
 const Styles = StyleSheet.create({
   toggleButton: {

@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Dimensions, View, StyleSheet, ViewStyle } from "react-native";
+
 import Card, { cards } from "../components/Card";
-import SelectionButton from "../components/SelectionButton";
+import SelectionItem from "../components/SelectionItem";
+
 import {
   Transitioning,
   Transition,
@@ -97,7 +99,7 @@ export default () => {
       <View style={Styles.layoutButtonsContainer}>
         {layouts.map((item, i) => {
           return (
-            <SelectionButton
+            <SelectionItem
               key={i}
               title={item.name}
               onPress={() => {
