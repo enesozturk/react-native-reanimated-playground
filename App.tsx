@@ -7,11 +7,13 @@ import LayoutTransitions from "./src/LayoutTransitions";
 import UseTransitions from "./src/UseTransitions";
 import Timing from "./src/Timing";
 import PanGesture from "./src/PanGesture/PanGesture";
+import Spring from "./src/Spring/Spring";
 
 export default function App() {
   return (
     <View style={Styles.pageContainer}>
-      <PanGesture />
+      <Spring />
+      {/* <PanGesture /> */}
       {/* <Timing /> */}
       {/* <UseTransitions /> */}
       {/* <LayoutTransitions /> */}
