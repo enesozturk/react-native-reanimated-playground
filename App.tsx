@@ -8,11 +8,13 @@ import UseTransitions from "./src/UseTransitions";
 import Timing from "./src/Timing";
 import PanGesture from "./src/PanGesture/PanGesture";
 import Spring from "./src/Spring/Spring";
+import Swipe from "./src/Swiping";
 
 export default function App() {
   return (
     <View style={Styles.pageContainer}>
-      <Spring />
+      <Swipe />
+      {/* <Spring /> */}
       {/* <PanGesture /> */}
       {/* <Timing /> */}
       {/* <UseTransitions /> */}
