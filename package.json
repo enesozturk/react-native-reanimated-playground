@@ -20,7 +20,8 @@
     "react-native-gesture-handler": "~1.6.0",
     "react-native-reanimated": "~1.9.0",
     "react-native-redash": "^14.2.4",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "use-memo-one": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

@@ -2,7 +2,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import Animated, { set, useCode, Value } from "react-native-reanimated";
-import { onGestureEvent, withSpring } from "react-native-redash";
+import { onGestureEvent } from "react-native-redash";
+import { withSpring } from "../components/AnimationHelpers";
 
 const config = {
   damping: 40,
@@ -16,17 +17,20 @@ const config = {
 interface SwipeableProps {
   translateX: Animated.Value<number>;
   translateY: Animated.Value<number>;
-  // x: Animated.Value<number>;
-  // y: Animated.Value<number>;
-  // offsetX: Animated.Value<number>;
-  // offsetY: Animated.Value<number>;
-  // snapPoints: Animated.Value<number>[];
-  // onSnap: Animated.Value<number>;
-
-  // velocityX: Animated.Value<number>;
+  offsetX?: Animated.Value<number>;
+  offsetY?: Animated.Value<number>;
+  snapPoints: number[];
+  onSnap?: (value: readonly number[]) => void;
 }
 
-const Swipeable = ({ translateX, translateY }: SwipeableProps) => {
+const Swipeable = ({
+  translateX,
+  translateY,
+  offsetX,
+  offsetY,
+  snapPoints,
+  onSnap,
+}: SwipeableProps) => {
   const translationX = new Value(0);
   const translationY = new Value(0);
   const velocityX = new Value(0);
@@ -42,13 +46,16 @@ const Swipeable = ({ translateX, translateY }: SwipeableProps) => {
   const x = withSpring({
     value: translationX,
     velocity: velocityX,
-    state: state,
-    snapPoints: [0],
+    offset: offsetX,
+    state,
+    snapPoints,
+    onSnap,
     config,
   });
   const y = withSpring({
     value: translationY,
     velocity: velocityY,
+    offset: offsetY || new Value(0),
     state,
     snapPoints: [0],
     config,
