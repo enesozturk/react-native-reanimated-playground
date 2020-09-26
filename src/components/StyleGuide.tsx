@@ -1,5 +1,9 @@
+import { Dimensions } from "react-native";
+
 const StyleGuide = {
   spacing: 8,
+  dimensionWidth: Dimensions.get("screen").width,
+  dimensionHeight: Dimensions.get("screen").height,
   palette: {
     primary: "#3884ff",
     secondary: "#FF6584",

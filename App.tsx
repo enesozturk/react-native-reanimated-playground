@@ -9,11 +9,13 @@ import Timing from "./src/Timing";
 import PanGesture from "./src/PanGesture/PanGesture";
 import Spring from "./src/Spring/Spring";
 import Swipe from "./src/Swiping";
+import DragToSort from "./src/DragToSort";
 
 export default function App() {
   return (
     <View style={Styles.pageContainer}>
-      <Swipe />
+      <DragToSort />
+      {/* <Swipe /> */}
       {/* <Spring /> */}
       {/* <PanGesture /> */}
       {/* <Timing /> */}
