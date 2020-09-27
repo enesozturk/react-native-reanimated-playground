@@ -11,11 +11,13 @@ import Spring from "./src/Spring/Spring";
 import Swipe from "./src/Swiping";
 import DragToSort from "./src/DragToSort";
 import Svg from "./src/Svg";
+import Trigonometry from "./src/Trigonometry";
 
 export default function App() {
   return (
     <View style={Styles.pageContainer}>
-      <Svg />
+      <Trigonometry />
+      {/* <Svg /> */}
       {/* <DragToSort /> */}
       {/* <Swipe /> */}
       {/* <Spring /> */}
