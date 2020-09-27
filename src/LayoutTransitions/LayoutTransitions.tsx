@@ -2,16 +2,22 @@ import React, { useState, useRef } from "react";
 import { Dimensions, View, StyleSheet, ViewStyle } from "react-native";
 
 import Card, { cards } from "../components/Card";
-import SelectionItem from "../components/SelectionItem";
+import SelectionItem, {
+  SelectionItemHeight,
+} from "../components/SelectionItem";
 
 import {
   Transitioning,
   Transition,
   TransitioningView,
 } from "react-native-reanimated";
+import StyleGuide from "../components/StyleGuide";
 
 const DimensionWidth = Dimensions.get("screen").width;
 const CARD_ASPECT_RATIO = 1324 / 863;
+
+const CARD_COLUMN_HEIGHT =
+  (StyleGuide.dimensionHeight - SelectionItemHeight * 3 - 64) / 3 - 8;
 const CARD_ROW_WIDTH = (DimensionWidth - 64) / 3 - 4;
 const CARD_WRAP_WIDTH = (DimensionWidth - 64) / 2 - 4;
 
@@ -31,11 +37,12 @@ const layouts: Layout[] = [
     layout: {
       container: {
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
       },
       child: {
-        marginBottom: 16,
+        height: CARD_COLUMN_HEIGHT,
+        width: CARD_COLUMN_HEIGHT * CARD_ASPECT_RATIO,
       },
     },
   },
@@ -91,7 +98,7 @@ export default () => {
             <Card
               key={item.id}
               card={item}
-              style={{ ...currentLayout.layout.child }}
+              cardStyles={{ ...currentLayout.layout.child }}
             />
           );
         })}

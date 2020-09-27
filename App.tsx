@@ -10,11 +10,13 @@ import PanGesture from "./src/PanGesture/PanGesture";
 import Spring from "./src/Spring/Spring";
 import Swipe from "./src/Swiping";
 import DragToSort from "./src/DragToSort";
+import Svg from "./src/Svg";
 
 export default function App() {
   return (
     <View style={Styles.pageContainer}>
-      <DragToSort />
+      <Svg />
+      {/* <DragToSort /> */}
       {/* <Swipe /> */}
       {/* <Spring /> */}
       {/* <PanGesture /> */}
@@ -33,6 +35,5 @@ const Styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 32,
   },
 });

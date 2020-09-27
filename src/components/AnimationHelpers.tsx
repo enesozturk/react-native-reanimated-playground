@@ -1,4 +1,4 @@
-import Animated, { Easing } from "react-native-reanimated";
+import Animated, { Easing, spring } from "react-native-reanimated";
 import { State } from "react-native-gesture-handler";
 import { min } from "react-native-redash";
 
@@ -120,5 +120,39 @@ export const withSpring = (props: WithSpringParams) => {
       cond(springState.finished, [...snap, ...finishSpring]),
     ]),
     springState.position,
+  ]);
+};
+
+export const withTransition = (
+  value: Animated.Node<number>,
+  velocity: Animated.Value<number>,
+  gestureState: Animated.Value<State>
+) => {
+  const clock = new Clock();
+  const state = {
+    finished: new Value(0),
+    velocity: new Value(0),
+    position: new Value(0),
+    time: new Value(0),
+  };
+  const config = {
+    toValue: new Value(0),
+    damping: 40,
+    mass: 3,
+    stiffness: 300,
+    overshootClamping: false,
+    restSpeedThreshold: 1,
+    restDisplacementThreshold: 1,
+  };
+
+  return block([
+    startClock(clock),
+    set(config.toValue, value),
+    cond(
+      eq(gestureState, State.ACTIVE),
+      [set(state.position, value), set(state.velocity, velocity)],
+      [spring(clock, state, config)]
+    ),
+    state.position,
   ]);
 };

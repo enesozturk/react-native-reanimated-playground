@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   GestureResponderEvent,
 } from "react-native";
+import StyleGuide from "./StyleGuide";
 
 interface SelectionItemProps {
   isActive?: boolean;
@@ -12,9 +13,12 @@ interface SelectionItemProps {
   onPress: (event: GestureResponderEvent) => void;
 }
 
+export const SelectionItemHeight =
+  StyleGuide.typography.body.lineHeight + 16 * 2;
+
 const SelectionItem = ({ isActive, title, onPress }: SelectionItemProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[Styles.button]}>
+    <TouchableOpacity onPress={onPress} style={Styles.button}>
       <Text
         style={[
           Styles.buttonText,
@@ -38,6 +42,7 @@ const Styles = StyleSheet.create({
   },
   buttonText: {
     color: "gray",
+    ...StyleGuide.typography.body,
   },
   buttonTextActive: {
     fontWeight: "bold",
