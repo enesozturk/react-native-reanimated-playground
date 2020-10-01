@@ -1,76 +1,34 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import Animated, {
   add,
   block,
-  Clock,
   cond,
   divide,
   eq,
-  floor,
-  max,
   multiply,
   set,
   useCode,
   Value,
-  spring,
-  startClock,
-  stopClock,
   diff,
   lessThan,
   abs,
   not,
   greaterThan,
   round,
+  neq,
+  and,
 } from "react-native-reanimated";
 import { panGestureHandler } from "react-native-redash";
-import Card, {
-  CardProps,
-  cards,
-  CARD_HEIGHT,
-  CARD_WIDTH,
-} from "../components/Card";
+import Card, { CardProps, CARD_HEIGHT, CARD_WIDTH } from "../components/Card";
+import { withTransition } from "../components/AnimationHelpers";
 import StyleGuide from "../components/StyleGuide";
 
 interface SortableCardProps extends CardProps {
   offsets: Animated.Value<number>[];
   index: number;
 }
-
-const withTransition = (
-  value: Animated.Node<number>,
-  velocity: Animated.Value<number>,
-  gestureState: Animated.Value<State>
-) => {
-  const clock = new Clock();
-  const state = {
-    finished: new Value(0),
-    velocity: new Value(0),
-    position: new Value(0),
-    time: new Value(0),
-  };
-  const config = {
-    toValue: new Value(0),
-    damping: 40,
-    mass: 3,
-    stiffness: 300,
-    overshootClamping: false,
-    restSpeedThreshold: 1,
-    restDisplacementThreshold: 1,
-  };
-
-  return block([
-    startClock(clock),
-    set(config.toValue, value),
-    cond(
-      eq(gestureState, State.ACTIVE),
-      [set(state.position, value), set(state.velocity, velocity)],
-      [spring(clock, state, config)]
-    ),
-    state.position,
-  ]);
-};
 
 export const withSafeOffset = ({
   offset,
@@ -105,30 +63,18 @@ const moving = (position: Animated.Node<number>) => {
 const SortableCard = ({ card, index, offsets }: SortableCardProps) => {
   const { gestureHandler, translation, velocity, state } = panGestureHandler();
 
-  const x = withSafeOffset({ offset: 0, value: translation.x, state });
+  const x = withSafeOffset({
+    offset: 0,
+    value: translation.x,
+    state,
+  });
+  const translateX = withTransition(x, velocity.x, state);
+
   const y = withSafeOffset({
     offset: offsets[index],
     value: translation.y,
     state,
   });
-
-  const currentIndex = round(divide(y, CARD_HEIGHT));
-  const currentOffset = multiply(currentIndex, CARD_HEIGHT);
-
-  useCode(
-    () =>
-      block(
-        offsets.map((offset) =>
-          cond(eq(offset, currentOffset), [
-            set(offset, offsets[index]),
-            set(offsets[index], currentOffset),
-          ])
-        )
-      ),
-    []
-  );
-
-  const translateX = withTransition(x, velocity.x, state);
   const translateY = withTransition(y, velocity.y, state);
 
   const zIndex = cond(
@@ -136,6 +82,27 @@ const SortableCard = ({ card, index, offsets }: SortableCardProps) => {
     200,
     cond(moving(translateY), 100, 1)
   );
+
+  const currentIndex = round(divide(y, CARD_HEIGHT));
+  const currentOffset = multiply(currentIndex, CARD_HEIGHT);
+
+  useCode(
+    () =>
+      block([
+        ...offsets.map((offset) =>
+          cond(
+            and(
+              eq(currentOffset, offset),
+              neq(currentOffset, offsets[index]),
+              eq(state, State.ACTIVE)
+            ),
+            [set(offset, offsets[index]), set(offsets[index], currentOffset)]
+          )
+        ),
+      ]),
+    [currentOffset, index, offsets, state]
+  );
+
   return (
     <PanGestureHandler {...gestureHandler}>
       <Animated.View
@@ -158,5 +125,3 @@ const SortableCard = ({ card, index, offsets }: SortableCardProps) => {
 };
 
 export default SortableCard;
-
-const styles = StyleSheet.create({});

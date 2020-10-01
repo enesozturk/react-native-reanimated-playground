@@ -1,4 +1,4 @@
-import Animated, { Easing, spring } from "react-native-reanimated";
+import Animated, { spring } from "react-native-reanimated";
 import { State } from "react-native-gesture-handler";
 import { min } from "react-native-redash";
 
@@ -10,7 +10,6 @@ const {
   not,
   clockRunning,
   startClock,
-  timing: reTiming,
   spring: reSpring,
   stopClock,
   add,
@@ -22,7 +21,6 @@ const {
   sub,
   neq,
   set,
-  defined,
 } = Animated;
 
 interface PrivateSpringConfig extends Animated.SpringConfig {
@@ -126,7 +124,8 @@ export const withSpring = (props: WithSpringParams) => {
 export const withTransition = (
   value: Animated.Node<number>,
   velocity: Animated.Value<number>,
-  gestureState: Animated.Value<State>
+  gestureState: Animated.Value<State> = new Value(State.UNDETERMINED),
+  springConfig?: Partial<Omit<Animated.SpringConfig, "toValue">>
 ) => {
   const clock = new Clock();
   const state = {
@@ -137,21 +136,21 @@ export const withTransition = (
   };
   const config = {
     toValue: new Value(0),
-    damping: 40,
-    mass: 3,
-    stiffness: 300,
+    damping: 15,
+    mass: 1,
+    stiffness: 150,
     overshootClamping: false,
     restSpeedThreshold: 1,
     restDisplacementThreshold: 1,
+    ...springConfig,
   };
-
   return block([
     startClock(clock),
     set(config.toValue, value),
     cond(
       eq(gestureState, State.ACTIVE),
-      [set(state.position, value), set(state.velocity, velocity)],
-      [spring(clock, state, config)]
+      [set(state.velocity, velocity), set(state.position, value)],
+      spring(clock, state, config)
     ),
     state.position,
   ]);
