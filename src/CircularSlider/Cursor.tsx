@@ -11,7 +11,7 @@ interface CursorProps {
   r: number;
   theta: Animated.Value<number>;
   strokeWidth: number;
-  backgroundColor: Animated.Node<number>;
+  backgroundColor?: string;
 }
 
 const Cursor = ({ r, theta, strokeWidth, backgroundColor }: CursorProps) => {
@@ -48,7 +48,7 @@ const Cursor = ({ r, theta, strokeWidth, backgroundColor }: CursorProps) => {
       <Animated.View
         style={{
           ...StyleSheet.absoluteFillObject,
-          backgroundColor,
+          backgroundColor: "#00c6ff",
           width: strokeWidth,
           height: strokeWidth,
           borderRadius: strokeWidth / 2,

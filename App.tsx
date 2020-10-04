@@ -68,7 +68,7 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="PanGesture">
+      <Drawer.Navigator initialRouteName="CicularProgress">
         <Drawer.Screen
           name="CicularProgress"
           component={CircularProgressScreen}
@@ -93,11 +93,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const Styles = StyleSheet.create({
-  pageContainer: {
-    height: StyleGuide.dimensionHeight,
-    width: StyleGuide.dimensionWidth,
-    backgroundColor: "red",
-  },
-});

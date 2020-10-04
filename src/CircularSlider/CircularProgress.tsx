@@ -9,11 +9,12 @@ const { PI } = Math;
 const { lessThan, interpolate, Extrapolate } = Animated;
 
 interface CircularProgressProps {
-  theta: number;
+  theta: Animated.Node<number>;
   r: number;
   bg: string;
   fg: string;
   strokeWidth: number;
+  backgroundColor: Animated.Node<number>;
 }
 
 const CircularProgress = ({
@@ -22,6 +23,7 @@ const CircularProgress = ({
   bg,
   fg,
   strokeWidth,
+  backgroundColor,
 }: CircularProgressProps) => {
   const opacity = lessThan(theta, PI);
   const rotate = interpolate(theta, {
@@ -32,7 +34,7 @@ const CircularProgress = ({
   return (
     <>
       <View style={{ zIndex: 1 }}>
-        <HalfCircle color={fg} {...{ r }} />
+        <HalfCircle color={backgroundColor} {...{ r }} />
         <Animated.View
           style={{
             ...StyleSheet.absoluteFillObject,
@@ -44,7 +46,7 @@ const CircularProgress = ({
         </Animated.View>
       </View>
       <View style={{ transform: [{ rotate: "180deg" }] }}>
-        <HalfCircle color={fg} {...{ r }} />
+        <HalfCircle color={backgroundColor} {...{ r }} />
         <Animated.View
           style={{
             ...StyleSheet.absoluteFillObject,
