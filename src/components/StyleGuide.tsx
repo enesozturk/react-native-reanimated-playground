@@ -5,7 +5,7 @@ const StyleGuide = {
   dimensionWidth: Dimensions.get("screen").width,
   dimensionHeight: Dimensions.get("screen").height,
   palette: {
-    primary: "#3884ff",
+    primary: "#0072ff",
     secondary: "#FF6584",
     tertiary: "#38ffb3",
     backgroundPrimary: "#d5e5ff", // === rgba(primary, 0.1)
