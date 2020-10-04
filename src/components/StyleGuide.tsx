@@ -51,6 +51,13 @@ const StyleGuide = {
       lineHeight: 26,
     },
   },
+  pageContainer: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 };
 
 export default StyleGuide;

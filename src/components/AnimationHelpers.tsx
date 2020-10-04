@@ -21,6 +21,7 @@ const {
   sub,
   neq,
   set,
+  defined,
 } = Animated;
 
 interface PrivateSpringConfig extends Animated.SpringConfig {
@@ -153,5 +154,26 @@ export const withTransition = (
       spring(clock, state, config)
     ),
     state.position,
+  ]);
+};
+
+export const withOffset = ({
+  offset,
+  value,
+  state: gestureState,
+}: {
+  offset?: Animated.Adaptable<number>;
+  value: Animated.Value<number>;
+  state: Animated.Value<State>;
+}) => {
+  const safeOffset: Animated.Value<number> = new Value();
+  return block([
+    cond(
+      not(defined(safeOffset)),
+      set(safeOffset, offset === undefined ? 0 : offset)
+    ),
+    cond(eq(gestureState, State.ACTIVE), add(safeOffset, value), [
+      set(safeOffset, add(safeOffset, value)),
+    ]),
   ]);
 };
