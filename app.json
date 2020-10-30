@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-animations-workshop",
-    "slug": "react-native-animations-workshop",
+    "name": "react-native-reanimated-playgroud",
+    "slug": "react-native-reanimated-playgroud",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
